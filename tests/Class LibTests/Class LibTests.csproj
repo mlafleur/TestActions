@@ -4,8 +4,6 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<RootNamespace>ClassLibTests</RootNamespace>
-		<Nullable>enable</Nullable>
-		<IsPackable>false</IsPackable>
 		<IsTestProject>true</IsTestProject>
 	</PropertyGroup>
 

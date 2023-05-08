@@ -23,7 +23,7 @@
 
         public string? DisplayName { get; set; }
         public string? GivenName { get; set; }
-        public Guid Id { get; set; }
+        public Guid Id { get; } = Guid.NewGuid();
         public string? Surname { get; set; }
     }
 }

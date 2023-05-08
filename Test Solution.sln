@@ -20,12 +20,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 		.runsettings = .runsettings
 		Directory.Build.props = Directory.Build.props
+		nuget.config = nuget.config
 		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Class Lib", "src\Class Lib\Class Lib.csproj", "{2C4325D4-2660-4D1A-B260-71A792DCAC3F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".pipelines", ".pipelines", "{C8740CDA-6F57-4A7F-96BD-BE7F8C2070DB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pipelines", "pipelines", "{FE5C0A0B-C3A7-4036-BEB8-D9D959C851DE}"
 	ProjectSection(SolutionItems) = preProject
 		.pipelines\main-pipelines.yml = .pipelines\main-pipelines.yml
 		.pipelines\pr-pipelines.yml = .pipelines\pr-pipelines.yml
@@ -67,7 +68,7 @@ Global
 		{A63939C2-C448-4E0E-B4E0-842985486AD4} = {092D2DC0-7EAA-4344-A899-F77B1A48281B}
 		{C0C68462-1A60-4B26-AAFA-8E0D6D7E5563} = {092D2DC0-7EAA-4344-A899-F77B1A48281B}
 		{2C4325D4-2660-4D1A-B260-71A792DCAC3F} = {FB8E9B87-A27A-4AB8-BED7-5EF203AC46A2}
-		{C8740CDA-6F57-4A7F-96BD-BE7F8C2070DB} = {5F215C15-9819-4F0D-8BEF-EC7E9F8A98BC}
+		{FE5C0A0B-C3A7-4036-BEB8-D9D959C851DE} = {5F215C15-9819-4F0D-8BEF-EC7E9F8A98BC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {514A53D6-FE22-4AAE-9B87-DD6E28AD18C8}

@@ -4,5 +4,6 @@
 		<Nullable>enable</Nullable>
 		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
 		<AnalysisMode>Recommended</AnalysisMode>
+    <IsPackable>false</IsPackable>
 	</PropertyGroup>
 </Project>

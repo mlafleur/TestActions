@@ -25,7 +25,7 @@ namespace ClassLib.Models
 
         public string? Description { get; set; }
         public string? DisplayName { get; set; }
-        public Guid Id { get; set; }
+        public Guid Id { get; } = Guid.NewGuid();
         public string? PartNumber { get; set; }
     }
 }
