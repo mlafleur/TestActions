@@ -69,7 +69,7 @@ steps:
     warningFailOption: fixed
     showStatistics: true
     checkCoverage: true
-    baseDefinitionId: 2
+    baseDefinitionId: 5
 
 - task: PublishTestResults@2
   displayName: 'Publish Test Results **/*.trx'
