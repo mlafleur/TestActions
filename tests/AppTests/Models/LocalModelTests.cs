@@ -19,6 +19,48 @@ namespace AppTests.Models
             model.DisplayName.Should().BeNull();
             model.GivenName.Should().BeNull();
             model.Surname.Should().BeNull();
+
+            false.Should().BeTrue(); // Forced failure
+        }
+
+        [TestMethod()]
+        public void LocalModel_Full_Ctor()
+        {
+            var model = new LocalModel("Custom Name", FirstName, LastName);
+            model.Should().NotBeNull();
+            model.DisplayName.Should().NotBeNull();
+            model.GivenName.Should().NotBeNull();
+            model.Surname.Should().NotBeNull();
+            model.DisplayName.Should().Be("Custom Name");
+            model.GivenName.Should().Be(FirstName);
+            model.Surname.Should().Be(LastName);
+        }
+
+        [TestMethod()]
+        [Ignore]
+        public void LocalModel_Full_Ctor_Should_Fail()
+        {
+            var model = new LocalModel("Custom Name", FirstName, LastName);
+            model.Should().NotBeNull();
+            model.DisplayName.Should().NotBeNull();
+            model.GivenName.Should().NotBeNull();
+            model.Surname.Should().NotBeNull();
+            model.DisplayName.Should().Be($"{model.Surname}, {model.GivenName}");
+            model.GivenName.Should().Be(FirstName);
+            model.Surname.Should().Be(LastName);
+        }
+
+        [TestMethod()]
+        public void LocalModel_Partial_Ctor()
+        {
+            var model = new LocalModel(FirstName, LastName);
+            model.Should().NotBeNull();
+            model.DisplayName.Should().NotBeNull();
+            model.GivenName.Should().NotBeNull();
+            model.Surname.Should().NotBeNull();
+            model.DisplayName.Should().Be($"{model.Surname}, {model.GivenName}");
+            model.GivenName.Should().Be(FirstName);
+            model.Surname.Should().Be(LastName);
         }
     }
 }
