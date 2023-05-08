@@ -5,6 +5,13 @@
 
 trigger: none
 
+pr:
+  autoCancel: false
+  branches:
+    include:
+    - main
+  drafts: false
+
 pool:
   vmImage: 'windows-latest'
   name: Azure Pipelines
