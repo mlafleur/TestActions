@@ -3,12 +3,10 @@
 
 name: .NET
 
-on:
-  workflow_dispatch:
-  push:
-    # branches: [ "main" ]
-  pull_request:
-    # branches: [ "main" ]
+on: ["pull_request", "workflow_dispatch"]
+
+env:
+  CI: true
 
 jobs:
   CheckCoverage:
@@ -21,10 +19,18 @@ jobs:
           dotnet-version: 6.0.x
       - run: dotnet test "Test Solution.sln" --results-directory "TestResults/" --settings .runsettings
       - run: dotnet tool restore
-      - run: dotnet tool run dotnet-coverage merge TestResults/ --recursive --output coverage-final.xml --output-format cobertura 
-      - name: Archive coverage report (xml)
-        uses: actions/upload-artifact@v3
+        if: always()
+      - run: dotnet tool run dotnet-coverage merge TestResults/ --recursive --output coverage.xml --output-format cobertura
+        if: always()
+      # - name: Archive coverage report (xml)
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: coverage-report
+      #     path: coverage-final.xml
+      - name: Upload Coverage to Coveralls
+        uses: coverallsapp/github-action@v2
+        if: always()
         with:
-          name: coverage-report
-          path: coverage-final.xml
-
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          format: cobertura
+          file: ${{ github.workspace }}/coverage.xml
