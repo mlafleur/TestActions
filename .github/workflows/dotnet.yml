@@ -21,10 +21,18 @@ jobs:
           dotnet-version: 6.0.x
       - run: dotnet test "Test Solution.sln" --results-directory "TestResults/" --settings .runsettings
       - run: dotnet tool restore
-      - run: dotnet tool run dotnet-coverage merge TestResults/ --recursive --output coverage-final.xml --output-format cobertura 
-      - name: Archive coverage report (xml)
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage-report
-          path: coverage-final.xml
+        if: always()
 
+      - name: Merge code coverage results
+        run: dotnet tool run dotnet-coverage merge TestResults/ --recursive --output TestResults/coverage-cobertura.xml --output-format cobertura --remove-input-files
+        if: always()
+   
+      - name: Validate coverage
+        uses: mlafleur/code-coverage-report-action
+        id: code_coverage_report_action
+        if: always()
+        with:
+          filename: "TestResults/coverage-cobertura.xml"
+          fail_on_negative_difference: true
+          artifact_download_workflow_names: "code-quality,baseline"
+          markdown_filename: code-coverage-diff
