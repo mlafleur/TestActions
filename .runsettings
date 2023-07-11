@@ -1,75 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<RunSettings>
-  <!-- Configurations that affect the Test Framework -->
-  <RunConfiguration>
-    <!-- Use 0 for maximum process-level parallelization. This does not force parallelization within the test DLL (on the thread-level). You can also change it from the Test menu; choose "Run tests in parallel". Unchecked = 1 (only 1), checked = 0 (max). -->
-    <MaxCpuCount>0</MaxCpuCount>
+<!-- 
+      Default Run Settings for Unit Tests
+      Use this .runsettings when running unit tests locally.
 
-    <!-- true or false -->
-    <!-- Value that specifies the exit code when no tests are discovered -->
-    <TreatNoTestsAsError>true</TreatNoTestsAsError>
+      Features:
+      - Outputs test results in multiple formats
+      - Calculates code coverage
+ -->
+<RunSettings>
+  <RunConfiguration>
+    <MaxCpuCount>0</MaxCpuCount>
+    <CollectSourceInformation>true</CollectSourceInformation>
   </RunConfiguration>
 
-  <!-- Configurations for data collectors -->
   <DataCollectionRunSettings>
     <DataCollectors>
-      <DataCollector friendlyName="Code Coverage" uri="datacollector://Microsoft/CodeCoverage/2.0" assemblyQualifiedName="Microsoft.VisualStudio.Coverage.DynamicCoverageDataCollector, Microsoft.VisualStudio.TraceCollector, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+
+      <DataCollector friendlyName="XPlat code coverage">
         <Configuration>
-          <CodeCoverage>
-            <ModulePaths>
-              <Exclude>
-                <ModulePath>.*CPPUnitTestFramework.*</ModulePath>
-                <ModulePath>.*tests.dll</ModulePath>
-                <ModulePath>.*Tests.dll</ModulePath>
-              </Exclude>
-            </ModulePaths>
-            <UseVerifiableInstrumentation>True</UseVerifiableInstrumentation>
-            <AllowLowIntegrityProcesses>True</AllowLowIntegrityProcesses>
-            <CollectFromChildProcesses>True</CollectFromChildProcesses>
-            <CollectAspDotNet>False</CollectAspDotNet>
-          </CodeCoverage>
+          <Format>cobertura</Format>
+          <Exclude>[*.*Tests*]</Exclude>
+          <IncludeTestAssembly>false</IncludeTestAssembly>
+          <SkipAutoProps>true</SkipAutoProps>
+          <ExcludeAssembliesWithoutSources>MissingAll</ExcludeAssembliesWithoutSources>
         </Configuration>
       </DataCollector>
 
-      <DataCollector friendlyName="blame" enabled="True">
-        <Configuration>
-          <CollectDump DumpType="Full" />
-          <CollectDumpOnTestSessionHang TestTimeout="10min" HangDumpType="Full" />
-        </Configuration>
-      </DataCollector>
     </DataCollectors>
   </DataCollectionRunSettings>
 
-  <!-- Test Runtime Parameters -->
-  <TestRunParameters>
-    <Parameter name="exampleProperty" value="exampleValue" />
-  </TestRunParameters>
+  <InProcDataCollectionRunSettings>
+    <InProcDataCollectors>
+      <InProcDataCollector assemblyQualifiedName="Coverlet.Collector.DataCollection.CoverletInProcDataCollector, coverlet.collector, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null"
+        friendlyName="XPlat Code Coverage"
+        enabled="True"
+        codebase="coverlet.collector.dll" />
+    </InProcDataCollectors>
+  </InProcDataCollectionRunSettings>
 
-  <!-- Configuration for loggers -->
-  <LoggerRunSettings>
-    <Loggers>
-      <Logger friendlyName="console" enabled="True">
-        <Configuration>
-          <Verbosity>quiet</Verbosity>
-        </Configuration>
-      </Logger>
-      <Logger friendlyName="trx" enabled="True">
-        <Configuration>
-          <LogFileName>UnitTests.trx</LogFileName>
-        </Configuration>
-      </Logger>
-      <Logger friendlyName="html" enabled="True">
-        <Configuration>
-          <LogFileName>UnitTests.html</LogFileName>
-        </Configuration>
-      </Logger>
-      <Logger friendlyName="blame" enabled="True" />
-    </Loggers>
-  </LoggerRunSettings>
-
-  <!-- MSTest adapter -->
-  <MSTest>
-    <DeleteDeploymentDirectoryAfterTestRunIsComplete>False</DeleteDeploymentDirectoryAfterTestRunIsComplete>
-    <Parallelize />
-  </MSTest>
+  <Parallelize>
+    <Scope>MethodLevel</Scope>
+  </Parallelize>
 </RunSettings>

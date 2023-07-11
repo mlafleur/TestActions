@@ -18,10 +18,10 @@ jobs:
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 6.0.x
-      - run: dotnet test "Test Solution.sln" --results-directory "TestResults/" --collect:"XPlat Code Coverage"
+      - run: dotnet test "Test Solution.sln" --results-directory "TestResults/" --settings .runsettings
       - run: dotnet tool restore
-      - run: dotnet tool run dotnet-coverage merge TestResults/ --recursive --output coverage-final.xml --output-format cobertura
-      - name: Archive coverage report (json)
+      - run: dotnet tool run dotnet-coverage merge TestResults/ --recursive --output coverage-final.xml --output-format cobertura 
+      - name: Archive coverage report (xml)
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report
