@@ -28,7 +28,7 @@ jobs:
         if: always()
    
       - name: Validate coverage
-        uses: mlafleur/code-coverage-report-action
+        uses: mlafleur/code-coverage-report-action@main
         id: code_coverage_report_action
         if: always()
         with:
