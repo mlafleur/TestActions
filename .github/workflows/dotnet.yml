@@ -28,7 +28,7 @@ jobs:
         if: always()
    
       - name: Validate coverage
-        uses: mlafleur/code-coverage-report-action@main
+        uses: mlafleur/code-coverage-report-action@overall-only
         id: code_coverage_report_action
         if: always()
         with:
@@ -36,3 +36,4 @@ jobs:
           fail_on_negative_difference: true
           artifact_download_workflow_names: "code-quality,baseline"
           markdown_filename: code-coverage-diff
+          diff_overall_coverage: true
