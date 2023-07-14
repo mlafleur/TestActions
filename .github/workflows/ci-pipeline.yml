@@ -1,3 +1,4 @@
+name: "CheckCoverage"
 on:
   workflow_dispatch:
   pull_request:
@@ -29,6 +30,7 @@ jobs:
           filename: "TestResults/coverage-cobertura.xml"
           fail_on_negative_difference: true
           markdown_filename: code-coverage-diff
+          artifact_download_workflow_names: "CheckCoverage"
 
       - name: Publish package coverage validation results
         uses: marocchino/sticky-pull-request-comment@v2.6.2
@@ -47,6 +49,7 @@ jobs:
           markdown_filename: overall-code-coverage-diff
           report_overall_coverage: true
           report_package_coverage: false
+          artifact_download_workflow_names: "CheckCoverage"
 
       - name: Publish overall coverage validation results
         uses: marocchino/sticky-pull-request-comment@v2.6.2
