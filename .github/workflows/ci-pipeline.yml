@@ -22,7 +22,7 @@ jobs:
         run: dotnet tool run dotnet-coverage merge TestResults/ --recursive --output TestResults/coverage-cobertura.xml --output-format cobertura --remove-input-files
         if: always()
 
-      - uses: mlafleur/code-coverage-report-action@v1.2.0-beta.1
+      - uses: mlafleur/code-coverage-report-action@v1.2.0-alpha
         name: Coverage by Package
         id: code_coverage_report_action
         if: always()
@@ -31,7 +31,6 @@ jobs:
           fail_on_negative_difference: true
           markdown_filename: code-coverage-diff
           artifact_download_workflow_names: "CheckCoverage"
-          exclude_unchanged: false
           badge: true
 
       - name: Publish package coverage validation results
@@ -41,17 +40,17 @@ jobs:
           recreate: true
           path: code-coverage-diff.md
 
-      - uses: mlafleur/code-coverage-report-action@v1.2.0-beta.1
+      - uses: mlafleur/code-coverage-report-action@v1.2.0-alpha
         name: Overall Coverage
         id: overall_code_coverage_report_action
         if: always()
         with:
           filename: "TestResults/coverage-cobertura.xml"
-          fail_on_negative_overall_difference: true
+          negative_difference_by: 'overall'
           markdown_filename: overall-code-coverage-diff
           artifact_download_workflow_names: "CheckCoverage"
           show_overall_diff_row: true
-          exclude_unchanged: false
+          exclude_unchanged: true
           badge: true
 
       - name: Publish overall coverage validation results
