@@ -8,7 +8,8 @@ permissions: write-all
 jobs:
   CheckCoverage:
     runs-on: ubuntu-latest
-
+    env:
+      COVER_REPORT:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-dotnet@v3
@@ -34,14 +35,17 @@ jobs:
           artifact_download_workflow_names: "CheckCoverage"
           badge: true
 
+      - run: cat code-coverage-diff >> $COVER_REPORT
+        if: always()
+
       - name: Publish package coverage validation results
         uses: marocchino/sticky-pull-request-comment@v2.6.2
         if: steps.code_coverage_report_action.outputs.file != '' && github.event_name == 'pull_request' && (success() || failure())
         with:
           recreate: true
-          path: 
+          path:
           header: All
           message: |
             <details open>
-            ${{ steps.code_coverage_report_action.outputs.file}}
+            ${{ env.COVER_REPORT }}
             </details>
