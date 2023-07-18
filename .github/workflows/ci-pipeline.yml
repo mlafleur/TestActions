@@ -23,24 +23,6 @@ jobs:
         if: always()
 
       - uses: mlafleur/code-coverage-report-action@v1.2.0-beta
-        name: Coverage by Package
-        id: code_coverage_report_action
-        if: always()
-        with:
-          filename: "TestResults/coverage-cobertura.xml"
-          fail_on_negative_difference: true
-          markdown_filename: code-coverage-diff
-          artifact_download_workflow_names: "CheckCoverage"
-          badge: true
-
-      - name: Publish package coverage validation results
-        uses: marocchino/sticky-pull-request-comment@v2.6.2
-        if: steps.code_coverage_report_action.outputs.file != '' && github.event_name == 'pull_request' && (success() || failure())
-        with:
-          recreate: true
-          path: code-coverage-diff.md
-
-      - uses: mlafleur/code-coverage-report-action@v1.2.0-beta
         name: Overall Coverage
         id: overall_code_coverage_report_action
         if: always()
