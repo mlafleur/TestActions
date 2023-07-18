@@ -35,7 +35,7 @@ jobs:
           artifact_download_workflow_names: "CheckCoverage"
           badge: true
 
-      - run: cat code-coverage-diff >> $COVER_REPORT
+      - run: echo "COVER_REPORT=$(cat code-coverage-diff >> $COVER_REPORT)" >> $GITHUB_ENV
         if: always()
 
       - name: Publish package coverage validation results
