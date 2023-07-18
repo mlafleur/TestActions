@@ -39,4 +39,9 @@ jobs:
         if: steps.code_coverage_report_action.outputs.file != '' && github.event_name == 'pull_request' && (success() || failure())
         with:
           recreate: true
-          path: code-coverage-diff.md
+          path: 
+          header: All
+          message: |
+            <details open>
+            ${{ steps.code_coverage_report_action.outputs.file}}
+            </details>
