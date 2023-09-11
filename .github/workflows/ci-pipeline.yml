@@ -3,11 +3,10 @@ on: pull_request
 permissions: write-all
 jobs:
   code-quality-ticket-ref:
-    name: "Jira Ticket Referenced"
+    name: "Ticket Reference"
     runs-on: ubuntu-latest
     steps:
-      - name: Jira Ticket in Title
-        id: jira
+      - id: jira
         continue-on-error: true
         uses: FidelusAleksander/gh-action-regex@master
         with:
@@ -30,7 +29,7 @@ jobs:
         if: steps.jira.outputs.match == 'false' && (success() || failure())
         with:
           script: |
-            core.warning('WARNING: Missing Jira Ticket Reference')
+            core.warning('WARNING: Pull Requests does not reference a Jira ticket in it's title. ')
 
     #   - uses: actions/checkout@v3
     #   - uses: actions/setup-dotnet@v3
