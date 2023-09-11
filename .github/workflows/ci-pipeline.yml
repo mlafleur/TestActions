@@ -13,12 +13,13 @@ jobs:
       - name: Validate Title
         id: jira
         uses: FidelusAleksander/gh-action-regex@master        
+        continue-on-error: true
         with:
           regex_pattern: "[A-Z|a-z]+-[0-9]+"
           text: ${{ github.event.pull_request.title }}
       - uses: actions/github-script@v5
         if: steps.jira.outputs.match == 'false'
-        with:
+        with:          
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             github.rest.issues.createComment({
