@@ -19,7 +19,7 @@ jobs:
           hide_and_recreate: true
           header: "JIRA_REC"
           message: |
-          :warning: **Missing Jira Ticket Reference** 
+            :warning: **Missing Jira Ticket Reference** 
             Pull Requests should reference a Jira ticket in their title. 
             If a PR address multiple tickets, the title should include the primary ticked and include the remaining ticket references in the PR description.
 
