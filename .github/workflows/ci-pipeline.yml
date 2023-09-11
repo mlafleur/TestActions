@@ -2,12 +2,13 @@ name: "Code Quality"
 on: pull_request
 permissions: write-all
 jobs:
-  jira-ticket:
+  code-quality-ticket-ref:
     name: "Jira Ticket Referenced"
     runs-on: ubuntu-latest
     steps:
       - name: Jira Ticket in Title
         id: jira
+        continue-on-error: true
         uses: FidelusAleksander/gh-action-regex@master
         with:
           regex_pattern: "[A-Z|a-z]+-[0-9]+"
@@ -24,6 +25,12 @@ jobs:
             Pull Requests should reference a Jira ticket in their title. 
 
             If a PR address multiple tickets, the title should include the primary ticked and include the remaining ticket references in the PR description.
+
+      - uses: actions/github-script@v3
+        if: steps.jira.outputs.match == 'false' && (success() || failure())
+        with:
+          script: |
+            core.warning('WARNING: Missing Jira Ticket Reference')
 
     #   - uses: actions/checkout@v3
     #   - uses: actions/setup-dotnet@v3
