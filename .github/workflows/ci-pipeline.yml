@@ -1,8 +1,9 @@
-name: "Jira Ticket Referenced"
+name: "Code Quality"
 on: pull_request
 permissions: write-all
 jobs:
-  varify:
+  jira-ticket:
+    name: "Jira Ticket Referenced"
     runs-on: ubuntu-latest
     steps:
       - name: Jira Ticket in Title
