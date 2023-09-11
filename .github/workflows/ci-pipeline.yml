@@ -25,11 +25,9 @@ jobs:
 
             If a PR address multiple tickets, the title should include the primary ticked and include the remaining ticket references in the PR description.
 
-      - uses: actions/github-script@v3
-        if: steps.jira.outputs.match == 'false' && (success() || failure())
-        with:
-          script: |
-            core.warning('WARNING: Pull Requests does not reference a Jira ticket in it's title. ')
+      - if: steps.jira.outputs.match == 'false' && (success() || failure())
+        run: echo "::warning title=Missing Jira Ticket Reference::Pull Requests does not reference a Jira ticket in it's title."
+
   code-quality-unit-tests:
     name: "Unit Tests"
     runs-on: ubuntu-latest
