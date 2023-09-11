@@ -12,30 +12,22 @@ jobs:
       - name: Validate Title
         id: jira
         uses: FidelusAleksander/gh-action-regex@master
-        continue-on-error: true
+        #continue-on-error: true
         with:
           regex_pattern: "[A-Z|a-z]+-[0-9]+"
           text: ${{ github.event.pull_request.title }}
-
-      - uses: actions/github-script@v5
-        if: steps.jira.outputs.match == 'false'
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'WARNING: Pull Request title does not reference a Jira ticket'
-            })
 
       - uses: marocchino/sticky-pull-request-comment@v2.6.2
         if: steps.jira.outputs.match == 'false' && github.event_name == 'pull_request' && (success() || failure())
         with:
           hide_and_recreate: true
-          header: "WARNING: Missing Ticket Reference"
+          header: "JIRA_REC"
           message: |
-            Pull Requests are required to reference a Jira ticket in the title. Additional tickets addressed by this PR should be included in the PR description.
+            WARNING: Missing Jira Ticket Reference
+              
+            Pull Requests should reference a Jira ticket in their title. 
+
+            If a PR address multiple tickets, the title should include the primary ticked and include the remaining ticket references in the PR description.
 
     #   - uses: actions/checkout@v3
     #   - uses: actions/setup-dotnet@v3
