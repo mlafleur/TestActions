@@ -1,18 +1,13 @@
-name: "CheckCoverage"
-on:
-  workflow_dispatch:
-  pull_request:
-  push:
-    branches: ["main"]
+name: "Jira Ticket Referenced"
+on: pull_request
 permissions: write-all
 jobs:
-  CheckCoverage:
+  varify:
     runs-on: ubuntu-latest
     steps:
-      - name: Validate Title
+      - name: Jira Ticket in Title
         id: jira
         uses: FidelusAleksander/gh-action-regex@master
-        #continue-on-error: true
         with:
           regex_pattern: "[A-Z|a-z]+-[0-9]+"
           text: ${{ github.event.pull_request.title }}
