@@ -30,42 +30,12 @@ jobs:
         with:
           script: |
             core.warning('WARNING: Pull Requests does not reference a Jira ticket in it's title. ')
-
-    #   - uses: actions/checkout@v3
-    #   - uses: actions/setup-dotnet@v3
-    #     with:
-    #       dotnet-version: 6.0.x
-    #   - run: dotnet test "Test Solution.sln" --results-directory "TestResults/" --settings .runsettings
-    #   - run: dotnet tool restore
-    #     if: always()
-
-    #   - name: Merge code coverage results
-    #     run: dotnet tool run dotnet-coverage merge TestResults/ --recursive --output TestResults/coverage-cobertura.xml --output-format cobertura --remove-input-files
-    #     if: always()
-
-    #   - uses: mlafleur/code-coverage-report-action@v1.2.0-beta
-    #     name: Coverage by Package
-    #     id: code_coverage_report_action
-    #     if: always()
-    #     with:
-    #       filename: "TestResults/coverage-cobertura.xml"
-    #       fail_on_negative_difference: true
-    #       negative_difference_by: "overall"
-    #       markdown_filename: code-coverage-diff
-    #       artifact_download_workflow_names: "CheckCoverage"
-    #       badge: true
-
-    #   - run: echo "COVER_REPORT=$(cat code-coverage-diff >> $COVER_REPORT)" >> $GITHUB_ENV
-    #     if: always()
-
-    #   - name: Publish package coverage validation results
-    #     uses: marocchino/sticky-pull-request-comment@v2.6.2
-    #     if: steps.code_coverage_report_action.outputs.file != '' && github.event_name == 'pull_request' && (success() || failure())
-    #     with:
-    #       recreate: true
-    #       path:
-    #       header: All
-    #       message: |
-    #         <details open>
-    #         ${{ env.COVER_REPORT }}
-    #         </details>
+  code-quality-unit-tests:
+    name: "Unit Tests"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+      - run: dotnet test "Test Solution.sln" --results-directory "TestResults/" --settings .runsettings
