@@ -1,2 +1,2 @@
 # Introduction 
-This is a example repo used to demonstrate a PR/Pipeline/Release flow
+This is an example repo used to demonstrate a PR/Pipeline/Release flow
